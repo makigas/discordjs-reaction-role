@@ -1,0 +1,7 @@
+.github/
+.eslintrc.js
+.gitignore
+*.ts
+!*.d.ts
+discordjs-reaction-role-*.tgz
+tsconfig.json
