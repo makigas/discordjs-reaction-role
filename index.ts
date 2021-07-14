@@ -2,6 +2,7 @@ import {
   Client,
   EmojiResolvable,
   MessageReaction,
+  PartialUser,
   Role,
   Snowflake,
   User,
@@ -24,9 +25,9 @@ function buildReverseSearch(
     if (!index[conf.messageId]) {
       index[conf.messageId] = {};
     }
-    index[conf.messageId][conf.reaction] = conf.roleId;
+    index[conf.messageId][conf.reaction.toString()] = conf.roleId;
     return index;
-  }, {});
+  }, {} as ReactionRoleReverseIndex);
 }
 
 export default class ReactionRole {
@@ -42,7 +43,7 @@ export default class ReactionRole {
     client.on("messageReactionRemove", this.removeReaction);
   }
 
-  private extractRole(reaction: MessageReaction): Promise<Role> {
+  private extractRole(reaction: MessageReaction): Promise<Role | null> {
     const messageId = reaction.message.id;
     const reactionName = reaction.emoji.name;
     if (
@@ -50,14 +51,24 @@ export default class ReactionRole {
       this.reverseConfig[messageId][reactionName]
     ) {
       const roleId = this.reverseConfig[messageId][reactionName];
-      return reaction.message.guild.roles.fetch(roleId);
+      if (reaction.message.guild) {
+        return reaction.message.guild.roles.fetch(roleId);
+      } else {
+        return Promise.resolve(null);
+      }
     }
+    return Promise.resolve(null);
   }
 
   private async addReaction(
     reaction: MessageReaction,
-    user: User
+    user: User | PartialUser
   ): Promise<void> {
+    if (user.partial) {
+      const fetchedUser = await user.fetch();
+      return this.addReaction(reaction, fetchedUser);
+    }
+
     /* Early leave if the message is not sent to a guild. */
     if (!reaction.message.guild) {
       return;
@@ -77,7 +88,15 @@ export default class ReactionRole {
     });
   }
 
-  async removeReaction(reaction: MessageReaction, user: User): Promise<void> {
+  async removeReaction(
+    reaction: MessageReaction,
+    user: User | PartialUser
+  ): Promise<void> {
+    if (user.partial) {
+      const fetchedUser = await user.fetch();
+      return this.removeReaction(reaction, fetchedUser);
+    }
+
     /* Early leave if the message is not sent to a guild. */
     if (!reaction.message.guild) {
       return;
