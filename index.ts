@@ -2,6 +2,7 @@ import {
   Client,
   EmojiResolvable,
   MessageReaction,
+  PartialUser,
   Role,
   Snowflake,
   User,
@@ -61,8 +62,13 @@ export default class ReactionRole {
 
   private async addReaction(
     reaction: MessageReaction,
-    user: User
+    user: User | PartialUser
   ): Promise<void> {
+    if (user.partial) {
+      const fetchedUser = await user.fetch();
+      return this.addReaction(reaction, fetchedUser);
+    }
+
     /* Early leave if the message is not sent to a guild. */
     if (!reaction.message.guild) {
       return;
@@ -82,7 +88,15 @@ export default class ReactionRole {
     });
   }
 
-  async removeReaction(reaction: MessageReaction, user: User): Promise<void> {
+  async removeReaction(
+    reaction: MessageReaction,
+    user: User | PartialUser
+  ): Promise<void> {
+    if (user.partial) {
+      const fetchedUser = await user.fetch();
+      return this.removeReaction(reaction, fetchedUser);
+    }
+
     /* Early leave if the message is not sent to a guild. */
     if (!reaction.message.guild) {
       return;
