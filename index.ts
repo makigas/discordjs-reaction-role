@@ -42,7 +42,7 @@ export default class ReactionRole {
     client.on("messageReactionRemove", this.removeReaction);
   }
 
-  private extractRole(reaction: MessageReaction): Promise<Role> {
+  private extractRole(reaction: MessageReaction): Promise<Role | null> {
     const messageId = reaction.message.id;
     const reactionName = reaction.emoji.name;
     if (
@@ -50,8 +50,13 @@ export default class ReactionRole {
       this.reverseConfig[messageId][reactionName]
     ) {
       const roleId = this.reverseConfig[messageId][reactionName];
-      return reaction.message.guild.roles.fetch(roleId);
+      if (reaction.message.guild) {
+        return reaction.message.guild.roles.fetch(roleId);
+      } else {
+        return Promise.resolve(null);
+      }
     }
+    return Promise.resolve(null);
   }
 
   private async addReaction(
