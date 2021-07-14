@@ -24,9 +24,9 @@ function buildReverseSearch(
     if (!index[conf.messageId]) {
       index[conf.messageId] = {};
     }
-    index[conf.messageId][conf.reaction] = conf.roleId;
+    index[conf.messageId][conf.reaction.toString()] = conf.roleId;
     return index;
-  }, {});
+  }, {} as ReactionRoleReverseIndex);
 }
 
 export default class ReactionRole {
