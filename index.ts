@@ -2,6 +2,7 @@ import {
   Client,
   EmojiResolvable,
   MessageReaction,
+  PartialMessageReaction,
   PartialUser,
   Role,
   Snowflake,
@@ -47,6 +48,7 @@ export default class ReactionRole {
     const messageId = reaction.message.id;
     const reactionName = reaction.emoji.name;
     if (
+      reactionName != null &&
       this.reverseConfig[messageId] &&
       this.reverseConfig[messageId][reactionName]
     ) {
@@ -61,59 +63,67 @@ export default class ReactionRole {
   }
 
   private async addReaction(
-    reaction: MessageReaction,
+    reaction: MessageReaction | PartialMessageReaction,
     user: User | PartialUser
   ): Promise<void> {
-    if (user.partial) {
-      const fetchedUser = await user.fetch();
-      return this.addReaction(reaction, fetchedUser);
-    }
+    Promise.all([reaction.fetch(), user.fetch()])
+      .then(async ([reaction, user]) => {
+        /* Early leave if the message is not sent to a guild. */
+        if (!reaction.message.guild) {
+          return;
+        }
 
-    /* Early leave if the message is not sent to a guild. */
-    if (!reaction.message.guild) {
-      return;
-    }
+        /* Get the member that reacted originally. */
+        const member = await reaction.message.guild.members.fetch(user.id);
+        if (!member) {
+          return;
+        }
 
-    /* Get the member that reacted originally. */
-    const member = await reaction.message.guild.members.fetch(user.id);
-    if (!member) {
-      return;
-    }
-
-    /* Try to add the member to the guild. */
-    await this.extractRole(reaction).then((role) => {
-      if (role) {
-        return member.roles.add(role);
-      }
-    });
+        /* Try to add the member to the guild. */
+        await this.extractRole(reaction).then((role) => {
+          if (role) {
+            return member.roles.add(role);
+          }
+        });
+      })
+      .catch((e) => {
+        console.error(
+          "An error happened inside the addReaction handler of discordjs-reaction-role"
+        );
+        console.error(e);
+      });
   }
 
   async removeReaction(
-    reaction: MessageReaction,
+    reaction: MessageReaction | PartialMessageReaction,
     user: User | PartialUser
   ): Promise<void> {
-    if (user.partial) {
-      const fetchedUser = await user.fetch();
-      return this.removeReaction(reaction, fetchedUser);
-    }
+    Promise.all([reaction.fetch(), user.fetch()])
+      .then(async ([reaction, user]) => {
+        /* Early leave if the message is not sent to a guild. */
+        if (!reaction.message.guild) {
+          return;
+        }
 
-    /* Early leave if the message is not sent to a guild. */
-    if (!reaction.message.guild) {
-      return;
-    }
+        /* Get the member that reacted originally. */
+        const member = await reaction.message.guild.members.fetch(user.id);
+        if (!member) {
+          return;
+        }
 
-    /* Get the member that reacted originally. */
-    const member = await reaction.message.guild.members.fetch(user.id);
-    if (!member) {
-      return;
-    }
-
-    /* Try to add the member to the guild. */
-    await this.extractRole(reaction).then((role) => {
-      if (role) {
-        return member.roles.remove(role);
-      }
-    });
+        /* Try to add the member to the guild. */
+        await this.extractRole(reaction).then((role) => {
+          if (role) {
+            return member.roles.remove(role);
+          }
+        });
+      })
+      .catch((e) => {
+        console.error(
+          "An error happened inside the removeReaction handler of discordjs-reaction-role"
+        );
+        console.error(e);
+      });
   }
 
   teardown(): void {

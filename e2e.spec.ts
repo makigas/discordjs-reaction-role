@@ -19,12 +19,10 @@ const message: string = process.env.MESSAGE;
 
 const client = new Client({
   partials: ["MESSAGE", "REACTION"],
-  ws: {
-    intents:
-      Intents.FLAGS.GUILD_MESSAGE_REACTIONS |
-      Intents.FLAGS.GUILD_MESSAGES |
-      Intents.FLAGS.GUILDS,
-  },
+  intents:
+    Intents.FLAGS.GUILD_MESSAGE_REACTIONS |
+    Intents.FLAGS.GUILD_MESSAGES |
+    Intents.FLAGS.GUILDS,
 });
 
 new ReactionRole(client, [
