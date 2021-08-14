@@ -11,7 +11,7 @@
     "build": "tsc",
     "clean": "rimraf dist",
     "lint": "eslint *.ts",
-    "test": "mocha -r ts-node/register *.spec.ts",
+    "test": "mocha -r ts-node/register index.spec.ts",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "release": "standard-version"
