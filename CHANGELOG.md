@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.2](https://github.com/makigas/discordjs-reaction-role/compare/v1.0.1...v1.0.2) (2021-08-14)
+
+
+### Features
+
+* add E2E test to live check the lib works ([6178ee4](https://github.com/makigas/discordjs-reaction-role/commit/6178ee413d7a1e10a507e1945e337d286af11a58))
+
+
+### Bug Fixes
+
+* **ci:** only test index.spec.ts ([01a18fb](https://github.com/makigas/discordjs-reaction-role/commit/01a18fbb5a5187e513392c5e2199a505efd18a55))
+
 ### [1.0.1](https://github.com/makigas/discordjs-reaction-role/compare/v1.0.0...v1.0.1) (2021-07-14)
 
 
