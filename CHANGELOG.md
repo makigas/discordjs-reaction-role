@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/makigas/discordjs-reaction-role/compare/v2.0.2...v2.1.0) (2021-10-09)
+
+
+### Features
+
+* support custom emojis by ID ([370e5e2](https://github.com/makigas/discordjs-reaction-role/commit/370e5e28c058e74f1c7dbbbcb8b317954a906065))
+* support parsing custom emojis by ID or name ([82b297f](https://github.com/makigas/discordjs-reaction-role/commit/82b297fb54cc7c76651607da309a2da3aa7ab920))
+
 ### [2.0.2](https://github.com/makigas/discordjs-reaction-role/compare/v2.0.1...v2.0.2) (2021-10-01)
 
 
