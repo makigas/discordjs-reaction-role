@@ -23,27 +23,48 @@ Sorry for stating this, but consider upgrading your bot.
 
 This library exposes a single class that depends on Discord.js. It tries to be agnostic of any other framework (such as Commando). This way, it should be easy to integrate into your existing bot system.
 
-The constructor expects to be based the Discord.js client and the configuration object. For instance,
+The constructor expects to be given the Discord.js client and the configuration object. For instance,
 
 ```js
-const rr = new ReactionRole(this.client, [
-  { messageId: "12341234", reaction: "🔔", roleId: "5959859595" },
-  { messageId: "12341234", reaction: "✅", roleId: "5959859598" },
+const client = new Client(...);
+const rr = new ReactionRole(client, [
+  { messageId: "12341234", reaction: "🔔", roleId: "5959859595" }, // Basic usage
+  { messageId: "12341234", reaction: "✅", roleId: "5959859598" }, // Multiple reactions per message!
+  { messageId: "12341234", reaction: "784536908345", roleId: "5959859598" }, // Custom emoji by ID
+  { messageId: "12341234", reaction: "worry", roleId: "5959859598" }, // Custom emoji by emoji name
 ]);
 ```
 
 The configuration object is an array of entries. Each entry has three keys:
 
 - `messageId`: the ID of the message that the user has to react to.
-- `reaction`: the emoji that the user has to use.
+- `reaction`: the emoji that the user has to use, either as the custom emoji ID, the custom emoji name or the Unicode codepoint.
 - `roleId`: the ID of the role that will be given to the user when reacted.
 
 It is up to you how to set up the configuration object. For instance, in a small server or in a bot designed to be used with a single server, you might just hardcode the settings into the source code of your bot, although this is not recommended. You could use a SettingProvider or read it from database, download the JSON from the internet, or whatever. It is up to you.
 
-As soon as you instantiate the ReactionRole class, `messageReactionAdd` and `messageReactionRemove` events will be caught and:
+**As soon as you instantiate the ReactionRole class, `messageReactionAdd` and `messageReactionRemove` events will be caught** and:
 
 - When a member reacts using the given emoji to the given message, the member will be added to the role.
 - When a member unreacts using the given emoji to the given message, the member will be removed from the role.
+
+### require() support
+
+Note that discordjs-reaction-role is using ESModules, so if you are using `require()`, you might need to get the `default` key:
+
+```js
+// Either:
+const ReactionRole = require("discordjs-reaction-role").default;
+
+// Or:
+const { default: ReactionRole } = require("discordjs-reaction-role");
+```
+
+### TypeScript support
+
+discordjs-reaction-role is written using TypeScript and thus it supports TypeScript out of the box. The library provides also a type definition (\*.d.ts) for projects using Visual Studio Code, either JavaScript or TypeScript.
+
+### Teardown
 
 If you need to remove the events (for instance, to restart the settings), you can call the `teardown` method:
 
