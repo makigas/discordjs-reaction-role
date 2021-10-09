@@ -46,17 +46,23 @@ export default class ReactionRole {
 
   private extractRole(reaction: MessageReaction): Promise<Role | null> {
     const messageId = reaction.message.id;
-    const reactionName = reaction.emoji.id || reaction.emoji.name;
-    if (
-      reactionName != null &&
-      this.reverseConfig[messageId] &&
-      this.reverseConfig[messageId][reactionName]
-    ) {
-      const roleId = this.reverseConfig[messageId][reactionName];
-      if (reaction.message.guild) {
+    const reactionId = reaction.emoji.id;
+    const reactionName = reaction.emoji.name;
+
+    if (this.reverseConfig[messageId]) {
+      const reverseConfig = this.reverseConfig[messageId];
+
+      // Attempt to parse the role from the configuration object.
+      let roleId;
+      if (reactionId && reverseConfig[reactionId]) {
+        roleId = reverseConfig[reactionId];
+      } else if (reactionName && reverseConfig[reactionName]) {
+        roleId = reverseConfig[reactionName];
+      }
+
+      // Attempt to extract and return the role
+      if (roleId && reaction.message.guild) {
         return reaction.message.guild.roles.fetch(roleId);
-      } else {
-        return Promise.resolve(null);
       }
     }
     return Promise.resolve(null);
