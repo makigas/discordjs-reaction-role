@@ -46,7 +46,7 @@ export default class ReactionRole {
 
   private extractRole(reaction: MessageReaction): Promise<Role | null> {
     const messageId = reaction.message.id;
-    const reactionName = reaction.emoji.name;
+    const reactionName = reaction.emoji.id || reaction.emoji.name;
     if (
       reactionName != null &&
       this.reverseConfig[messageId] &&
