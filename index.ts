@@ -93,6 +93,10 @@ export default class ReactionRole {
         });
       })
       .catch((e) => {
+        /* Check if the error is caused by message or channel being deleted, and ignore error if so */
+        if (reaction?.message?.deleted) {
+          return;
+        }
         console.error(
           "An error happened inside the addReaction handler of discordjs-reaction-role"
         );
@@ -125,6 +129,10 @@ export default class ReactionRole {
         });
       })
       .catch((e) => {
+        /* Check if the error is caused by message or channel being deleted, and ignore error if so */
+        if (reaction?.message?.deleted) {
+          return;
+        }
         console.error(
           "An error happened inside the removeReaction handler of discordjs-reaction-role"
         );
