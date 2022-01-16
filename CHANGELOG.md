@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.1](https://github.com/makigas/discordjs-reaction-role/compare/v2.1.0...v2.1.1) (2022-01-16)
+
+
+### Bug Fixes
+
+* error caused by deleting channels with a reaction ([#80](https://github.com/makigas/discordjs-reaction-role/issues/80)) ([b293f76](https://github.com/makigas/discordjs-reaction-role/commit/b293f76a2ac2a64791f6589ce311990a63afe564))
+
 ## [2.1.0](https://github.com/makigas/discordjs-reaction-role/compare/v2.0.2...v2.1.0) (2021-10-09)
 
 
