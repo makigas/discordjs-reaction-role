@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/makigas/discordjs-reaction-role/compare/v2.1.1...v3.0.0) (2022-05-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* do not use an export default
+
+* do not use an export default ([aa9381b](https://github.com/makigas/discordjs-reaction-role/commit/aa9381bb2cb4f9a4fa357f3118e693a61d39882e))
+
 ### [2.1.1](https://github.com/makigas/discordjs-reaction-role/compare/v2.1.0...v2.1.1) (2022-01-16)
 
 
