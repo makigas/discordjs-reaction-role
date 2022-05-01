@@ -4,6 +4,7 @@
 .gitignore
 *.ts
 !*.d.ts
+CHANGELOG.md
 discordjs-reaction-role-*.tgz
 examples/
 tsconfig.json
