@@ -5,4 +5,5 @@
 *.ts
 !*.d.ts
 discordjs-reaction-role-*.tgz
+examples/
 tsconfig.json

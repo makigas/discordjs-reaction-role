@@ -9,6 +9,7 @@ module.exports = {
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:prettier/recommended",
   ],
+  ignorePatterns: ["examples/**/*"],
   globals: {
     Atomics: "readonly",
     SharedArrayBuffer: "readonly",
