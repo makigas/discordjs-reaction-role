@@ -31,7 +31,7 @@ function buildReverseSearch(
   }, {} as ReactionRoleReverseIndex);
 }
 
-export default class ReactionRole {
+export class ReactionRole {
   private reverseConfig: ReactionRoleReverseIndex;
 
   constructor(private client: Client, config: ReactionRoleConfiguration[]) {

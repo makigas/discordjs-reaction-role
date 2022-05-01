@@ -7,7 +7,7 @@
  */
 
 import { Client, Intents } from "discord.js";
-import ReactionRole from "./index";
+import { ReactionRole } from "./index";
 
 if (!process.env.BOT_TOKEN || !process.env.ROLE || !process.env.MESSAGE) {
   console.error("Missing config");
