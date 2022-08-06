@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/makigas/discordjs-reaction-role/compare/v3.0.0...v3.1.0) (2022-08-06)
+
+
+### Features
+
+* add debug mode ([4a49a7c](https://github.com/makigas/discordjs-reaction-role/commit/4a49a7c195f8d73b26c6b5a89fec11c4c153cfe0))
+* add support for Discord.js 14 ([07ba929](https://github.com/makigas/discordjs-reaction-role/commit/07ba9293056ebde1f05716d0ee8ac0a1c0b28bcc))
+
 ## [3.0.0](https://github.com/makigas/discordjs-reaction-role/compare/v2.1.1...v3.0.0) (2022-05-01)
 
 
