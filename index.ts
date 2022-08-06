@@ -44,7 +44,9 @@ export class ReactionRole {
     client.on("messageReactionRemove", this.removeReaction);
   }
 
-  private extractRole(reaction: MessageReaction): Promise<Role | null> {
+  private extractRole(
+    reaction: MessageReaction | PartialMessageReaction
+  ): Promise<Role | null> {
     const messageId = reaction.message.id;
     const reactionId = reaction.emoji.id;
     const reactionName = reaction.emoji.name;
@@ -72,72 +74,46 @@ export class ReactionRole {
     reaction: MessageReaction | PartialMessageReaction,
     user: User | PartialUser
   ): Promise<void> {
-    Promise.all([reaction.fetch(), user.fetch()])
-      .then(async ([reaction, user]) => {
-        /* Early leave if the message is not sent to a guild. */
-        if (!reaction.message.guild) {
-          return;
-        }
+    /* Early leave if the message is not sent to a guild. */
+    if (!reaction.message.guild) {
+      return;
+    }
 
-        /* Get the member that reacted originally. */
-        const member = await reaction.message.guild.members.fetch(user.id);
-        if (!member) {
-          return;
-        }
+    /* Get the member that reacted originally. */
+    const member = await reaction.message.guild.members.fetch(user.id);
+    if (!member) {
+      return;
+    }
 
-        /* Try to add the member to the guild. */
-        await this.extractRole(reaction).then((role) => {
-          if (role) {
-            return member.roles.add(role);
-          }
-        });
-      })
-      .catch((e) => {
-        /* Check if the error is caused by message or channel being deleted, and ignore error if so */
-        if (reaction?.message?.deleted) {
-          return;
-        }
-        console.error(
-          "An error happened inside the addReaction handler of discordjs-reaction-role"
-        );
-        console.error(e);
-      });
+    /* Try to add the member to the guild. */
+    await this.extractRole(reaction).then((role) => {
+      if (role) {
+        return member.roles.add(role);
+      }
+    });
   }
 
   async removeReaction(
     reaction: MessageReaction | PartialMessageReaction,
     user: User | PartialUser
   ): Promise<void> {
-    Promise.all([reaction.fetch(), user.fetch()])
-      .then(async ([reaction, user]) => {
-        /* Early leave if the message is not sent to a guild. */
-        if (!reaction.message.guild) {
-          return;
-        }
+    /* Early leave if the message is not sent to a guild. */
+    if (!reaction.message.guild) {
+      return;
+    }
 
-        /* Get the member that reacted originally. */
-        const member = await reaction.message.guild.members.fetch(user.id);
-        if (!member) {
-          return;
-        }
+    /* Get the member that reacted originally. */
+    const member = await reaction.message.guild.members.fetch(user.id);
+    if (!member) {
+      return;
+    }
 
-        /* Try to add the member to the guild. */
-        await this.extractRole(reaction).then((role) => {
-          if (role) {
-            return member.roles.remove(role);
-          }
-        });
-      })
-      .catch((e) => {
-        /* Check if the error is caused by message or channel being deleted, and ignore error if so */
-        if (reaction?.message?.deleted) {
-          return;
-        }
-        console.error(
-          "An error happened inside the removeReaction handler of discordjs-reaction-role"
-        );
-        console.error(e);
-      });
+    /* Try to add the member to the guild. */
+    await this.extractRole(reaction).then((role) => {
+      if (role) {
+        return member.roles.remove(role);
+      }
+    });
   }
 
   teardown(): void {
