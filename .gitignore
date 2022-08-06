@@ -1,3 +1,5 @@
 node_modules/
 dist/
+examples/typescript*/*.js
+examples/typescript*/*.d.ts
 discordjs-reaction-role-*.tgz

@@ -1,5 +1,5 @@
 {
-  "name": "@makigas/discordjs-reaction-role-require-example",
+  "name": "@makigas/discordjs-reaction-role-require-14-example",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^13.0.0",
+    "discord.js": "^14.0",
     "discordjs-reaction-role": "file:../.."
   }
 }

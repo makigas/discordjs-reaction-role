@@ -1,0 +1,19 @@
+{
+  "name": "@makigas/discordjs-reaction-role-typescript-13-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node index"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^13.0",
+    "discordjs-reaction-role": "file:../.."
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
+}
