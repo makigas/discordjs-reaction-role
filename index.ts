@@ -74,6 +74,15 @@ export class ReactionRole {
     reaction: MessageReaction | PartialMessageReaction,
     user: User | PartialUser
   ): Promise<void> {
+    if (process.env.REACTION_DEBUG) {
+      console.debug("add", {
+        message: reaction.message.id,
+        user: user.id,
+        emoji: reaction.emoji.name,
+        partial: reaction.partial,
+      });
+    }
+
     /* Early leave if the message is not sent to a guild. */
     if (!reaction.message.guild) {
       return;
@@ -97,6 +106,15 @@ export class ReactionRole {
     reaction: MessageReaction | PartialMessageReaction,
     user: User | PartialUser
   ): Promise<void> {
+    if (process.env.REACTION_DEBUG) {
+      console.debug("remove", {
+        message: reaction.message.id,
+        user: user.id,
+        emoji: reaction.emoji.name,
+        partial: reaction.partial,
+      });
+    }
+
     /* Early leave if the message is not sent to a guild. */
     if (!reaction.message.guild) {
       return;

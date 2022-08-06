@@ -4,7 +4,7 @@
  * (so you import using "require").
  */
 
-const { Client, Intents } = require("discord.js");
+const { Client, Intents, version } = require("discord.js");
 const { ReactionRole } = require("discordjs-reaction-role");
 
 // Make sure that all the three environment variables are declared.
@@ -35,7 +35,9 @@ const configuration = [
 const manager = new ReactionRole(client, configuration);
 
 // Start the bot.
-client.on("ready", () => console.log("Bot is online!"));
+client.on("ready", () => {
+  console.log("Bot is online! Example: require. DJS version:", version);
+});
 client.login(process.env.BOT_TOKEN);
 
 // Stop the bot when the process is closed (via Ctrl-C).

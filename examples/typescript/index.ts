@@ -4,7 +4,7 @@
  * when building the package properly works.
  */
 
-import { Client, Intents, Snowflake } from "discord.js";
+import { Client, Intents, Snowflake, version } from "discord.js";
 import {
   ReactionRole,
   ReactionRoleConfiguration,
@@ -40,7 +40,9 @@ const configuration: ReactionRoleConfiguration[] = [
 const manager = new ReactionRole(client, configuration);
 
 // Start the bot.
-client.on("ready", () => console.log("Bot is online!"));
+client.on("ready", () => {
+  console.log("Bot is online! Example: typescript. DJS version:", version);
+});
 client.login(process.env.BOT_TOKEN);
 
 // Stop the bot when the process is closed (via Ctrl-C).

@@ -4,7 +4,7 @@
  * (so you import using "import from").
  */
 
-import { Client, Intents } from "discord.js";
+import { Client, Intents, version } from "discord.js";
 import { ReactionRole } from "discordjs-reaction-role";
 
 // Make sure that all the three environment variables are declared.
@@ -35,7 +35,9 @@ const configuration = [
 const manager = new ReactionRole(client, configuration);
 
 // Start the bot.
-client.on("ready", () => console.log("Bot is online!"));
+client.on("ready", () => {
+  console.log("Bot is online! Example: modules. DJS version:", version);
+});
 client.login(process.env.BOT_TOKEN);
 
 // Stop the bot when the process is closed (via Ctrl-C).

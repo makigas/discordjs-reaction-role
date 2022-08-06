@@ -33,7 +33,9 @@ var configuration = [
 ];
 var manager = new discordjs_reaction_role_1.ReactionRole(client, configuration);
 // Start the bot.
-client.on("ready", function () { return console.log("Bot is online!"); });
+client.on("ready", function () {
+    console.log("Bot is online! Example: typescript. DJS version:", discord_js_1.version);
+});
 client.login(process.env.BOT_TOKEN);
 // Stop the bot when the process is closed (via Ctrl-C).
 var destroy = function () {
