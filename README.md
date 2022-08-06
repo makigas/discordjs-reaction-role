@@ -15,7 +15,7 @@ Example use cases:
 
 ## Requirements
 
-A JavaScript project already depending on Discord.js 13.
+A JavaScript project already depending on Discord.js 13 or Discord.js 14.
 
 **Still using Discord.js 12 and having a hard time upgrading?** 👉 Stay using
 discordjs-reaction-role 1.0.2, the last version supporting Discord.js 12. You

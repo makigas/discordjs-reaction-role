@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^14.0",
-    "discordjs-reaction-role": "file:../.."
+    "discordjs-reaction-role": "3.1.0-beta.1"
   }
 }
