@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node index"
+    "build": "tsc index",
+    "start": "node index"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^13.0.0",
-    "discordjs-reaction-role": "file:../..",
-    "ts-node": "^10.7.0",
+    "discordjs-reaction-role": "file:../.."
+  },
+  "devDependencies": {
     "typescript": "^4.6.4"
   }
 }
